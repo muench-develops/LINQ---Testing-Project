@@ -8,7 +8,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace LINQFeaturesLibrary
 {
-    public class LINQHelperClass
+    public class HelperClass
     {
         public static IEnumerable<Employee> InitializeDevelopers()
         {
@@ -34,12 +34,34 @@ namespace LINQFeaturesLibrary
         public static void WriteDevelopersToConsole(IEnumerable<Employee> developers)
         {
             IEnumerator<Employee> enumerator = developers.GetEnumerator();
-            while (enumerator.MoveNext())
+            //while (enumerator.MoveNext())
+            //{
+            //    Console.WriteLine($"{enumerator.Current.Name} - ID {enumerator.Current.ID}");
+            //}          
+
+            //foreach(var employee in developers.Where(NameStartsWithS))
+            //{
+            //    Console.WriteLine($"{employee.Name}");
+            //}
+
+            //foreach (Employee employee in developers.Where(delegate (Employee arg)
+            //{
+            //    return arg.Name.StartsWith("S");
+            //}))
+            //{
+            //    Console.WriteLine($"{employee.Name}");
+            //}
+
+            //Linq Query
+            foreach (Employee employee in developers.Where(e => e.Name.StartsWith("S")).OrderBy(e=>e.Name))
             {
-                Console.WriteLine($"{enumerator.Current.Name} - ID {enumerator.Current.ID}");
-            }          
+                Console.WriteLine($"{employee.Name}");
+            }
 
             Console.WriteLine($"Items in developers: {developers.Count()}");
         }
+
+        private static bool NameStartsWithS(Employee arg) => arg.Name.StartsWith("S");
+
     }
 }
